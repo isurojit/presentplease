@@ -1,9 +1,10 @@
-import React from 'react';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import LoginPage from './pages/LoginPage';
-import Dashboard from './pages/Dashboard';
-import { Toaster } from 'react-hot-toast';
-import './App.css';
+import React from "react";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import LoginPage from "./pages/LoginPage";
+import Dashboard from "./pages/Dashboard";
+import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "./context/ThemeContext";
+import "./App.css";
 
 const AppContent = () => {
   const { user, loading } = useAuth();
@@ -29,20 +30,27 @@ const AppContent = () => {
 
 function App() {
   return (
-    <AuthProvider>
-      <Toaster position="top-right" toastOptions={{
-        style: {
-          background: '#1a1a2e',
-          color: '#e8e8f0',
-          border: '1px solid #2d2d4e',
-          borderRadius: '12px',
-          fontFamily: '"DM Sans", sans-serif',
-        },
-        success: { iconTheme: { primary: '#00d4aa', secondary: '#1a1a2e' } },
-        error: { iconTheme: { primary: '#ff6b6b', secondary: '#1a1a2e' } },
-      }} />
-      <AppContent />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: "#1a1a2e",
+              color: "#e8e8f0",
+              border: "1px solid #2d2d4e",
+              borderRadius: "12px",
+              fontFamily: '"DM Sans", sans-serif',
+            },
+            success: {
+              iconTheme: { primary: "#00d4aa", secondary: "#1a1a2e" },
+            },
+            error: { iconTheme: { primary: "#ff6b6b", secondary: "#1a1a2e" } },
+          }}
+        />
+        <AppContent />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
